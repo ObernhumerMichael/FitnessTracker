@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:17.4
+    container_name: ft_postgres
+    restart: always
+    env_file: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    container_name: ft_backend
+    restart: always
+    env_file: .env
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/var/www/html
+    ports:
+      - "8000:80"
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
