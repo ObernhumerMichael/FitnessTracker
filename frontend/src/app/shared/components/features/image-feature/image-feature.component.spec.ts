@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FeatureUspsComponent } from './feature-usps.component';
+import { ImageFeatureComponent } from './image-feature.component';
 
-describe('FeatureUspsComponent', () => {
-  let component: FeatureUspsComponent;
-  let fixture: ComponentFixture<FeatureUspsComponent>;
+describe('ImageFeatureComponent', () => {
+  let component: ImageFeatureComponent;
+  let fixture: ComponentFixture<ImageFeatureComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FeatureUspsComponent]
+      imports: [ImageFeatureComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FeatureUspsComponent);
+    fixture = TestBed.createComponent(ImageFeatureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

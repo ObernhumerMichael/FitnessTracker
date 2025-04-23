@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
 
 @Component({
-  selector: 'app-feature-usps',
+  selector: 'app-main-hero',
   imports: [NgOptimizedImage],
-  templateUrl: './feature-usps.component.html',
+  templateUrl: './main-hero.component.html',
 })
-export class FeatureUspsComponent {
+export class MainHeroComponent {
 
 }
