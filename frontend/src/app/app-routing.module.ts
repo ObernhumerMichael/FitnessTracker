@@ -5,49 +5,95 @@ import { RouterModule, Routes } from '@angular/router';
 // Project import
 import { AdminComponent } from './theme/layouts/admin-layout/admin-layout.component';
 import { GuestLayoutComponent } from './theme/layouts/guest-layout/guest-layout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './dashboard/home/home.component';
+import { WorkoutComponent } from './dashboard/workout/workout.component';
+import { NutritionComponent } from './dashboard/nutrition/nutrition.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AdminComponent,
+    component: DashboardComponent,
+    title: "Dashboard",
     children: [
       {
         path: '',
-        redirectTo: '/dashboard/default',
+        redirectTo: 'dashboard/home',
         pathMatch: 'full'
       },
       {
-        path: 'dashboard/default',
-        loadComponent: () => import('./demo/dashboard/default/default.component').then((c) => c.DefaultComponent)
+        path: 'dashboard/home',
+        component: HomeComponent,
+        title: "Home",
       },
       {
-        path: 'typography',
-        loadComponent: () => import('./demo/component/basic-component/typography/typography.component').then((c) => c.TypographyComponent)
+        path: 'dashboard/workout',
+        component: WorkoutComponent,
+        title: "Home",
       },
       {
-        path: 'color',
-        loadComponent: () => import('./demo/component/basic-component/color/color.component').then((c) => c.ColorComponent)
+        path: 'dashboard/nutrition',
+        component: NutritionComponent,
+        title: "Home",
+      },
+    ],
+  },
+  {
+    path: 'demo',
+    children: [
+      {
+        path: '',
+        component: AdminComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'dashboard/default',
+            pathMatch: 'full'
+          },
+          {
+            path: 'dashboard/default',
+            loadComponent: () =>
+              import('./demo/dashboard/default/default.component').then((c) => c.DefaultComponent)
+          },
+          {
+            path: 'typography',
+            loadComponent: () =>
+              import('./demo/component/basic-component/typography/typography.component').then((c) => c.TypographyComponent)
+          },
+          {
+            path: 'color',
+            loadComponent: () =>
+              import('./demo/component/basic-component/color/color.component').then((c) => c.ColorComponent)
+          },
+          {
+            path: 'sample-page',
+            loadComponent: () =>
+              import('./demo/others/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
+          }
+        ]
       },
       {
-        path: 'sample-page',
-        loadComponent: () => import('./demo/others/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
+        path: '',
+        component: GuestLayoutComponent,
+        children: [
+          {
+            path: 'login',
+            loadComponent: () =>
+              import('./demo/pages/authentication/auth-login/auth-login.component').then((c) => c.AuthLoginComponent)
+          },
+          {
+            path: 'register',
+            loadComponent: () =>
+              import('./demo/pages/authentication/auth-register/auth-register.component').then((c) => c.AuthRegisterComponent)
+          }
+        ]
       }
     ]
   },
   {
     path: '',
-    component: GuestLayoutComponent,
-    children: [
-      {
-        path: 'login',
-        loadComponent: () => import('./demo/pages/authentication/auth-login/auth-login.component').then((c) => c.AuthLoginComponent)
-      },
-      {
-        path: 'register',
-        loadComponent: () =>
-          import('./demo/pages/authentication/auth-register/auth-register.component').then((c) => c.AuthRegisterComponent)
-      }
-    ]
+    redirectTo: '/demo',
+    pathMatch: 'full'
   }
 ];
 
@@ -55,4 +101,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

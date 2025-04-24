@@ -27,11 +27,29 @@ export const NavigationItems: NavigationItem[] = [
     children: [
       {
         id: 'default',
-        title: 'Default',
+        title: 'Home',
         type: 'item',
         classes: 'nav-item',
-        url: '/dashboard/default',
+        url: '/dashboard/home',
         icon: 'dashboard',
+        breadcrumbs: false
+      },
+      {
+        id: 'workout',
+        title: 'Workout',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/dashboard/workout',
+        icon: 'rise',
+        breadcrumbs: false
+      },
+      {
+        id: 'nutrition',
+        title: 'Nutrition',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/dashboard/nutrition',
+        icon: 'heart',
         breadcrumbs: false
       }
     ]
