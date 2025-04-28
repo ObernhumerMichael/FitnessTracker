@@ -44,11 +44,11 @@ export const NavigationItems: NavigationItem[] = [
         breadcrumbs: false
       },
       {
-        id: 'nutrition',
-        title: 'Nutrition',
+        id: 'health',
+        title: 'Health',
         type: 'item',
         classes: 'nav-item',
-        url: '/dashboard/nutrition',
+        url: '/dashboard/health',
         icon: 'heart',
         breadcrumbs: false
       }

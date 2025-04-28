@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { WeightLineChartComponent } from 'src/app/theme/shared/apexchart/weight-line-chart/weight-line-chart.component';
 
 @Component({
-  selector: 'app-nutrition',
+  selector: 'app-health',
   imports: [WeightLineChartComponent],
-  templateUrl: './nutrition.component.html',
-  styleUrl: './nutrition.component.scss'
+  templateUrl: './health.component.html',
+  styleUrl: './health.component.scss'
 })
-export class NutritionComponent {
+export class HealthComponent {
 
 }

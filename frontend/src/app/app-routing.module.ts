@@ -8,7 +8,7 @@ import { GuestLayoutComponent } from './theme/layouts/guest-layout/guest-layout.
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './dashboard/home/home.component';
 import { WorkoutComponent } from './dashboard/workout/workout.component';
-import { NutritionComponent } from './dashboard/nutrition/nutrition.component';
+import { HealthComponent } from './dashboard/health/health.component';
 
 const routes: Routes = [
   {
@@ -32,8 +32,8 @@ const routes: Routes = [
         title: "Home",
       },
       {
-        path: 'dashboard/nutrition',
-        component: NutritionComponent,
+        path: 'dashboard/health',
+        component: HealthComponent,
         title: "Home",
       },
     ],
