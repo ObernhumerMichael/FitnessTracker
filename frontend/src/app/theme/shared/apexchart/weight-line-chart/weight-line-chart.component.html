@@ -1,9 +1,12 @@
 <h5 class="mb-3 mt-2">Weight</h5>
 <app-card [showHeader]="false">
+    @if (isLoading) {
+    <div class="loading">Loading weight data...</div>
+    } @else {
     <div class="chart">
-        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [plotOptions]="chartOptions.plotOptions"
-            [xaxis]="chartOptions.xaxis" [colors]="chartOptions.colors" [stroke]="chartOptions.stroke"
-            [yaxis]="chartOptions.yaxis" [grid]="chartOptions.grid" [tooltip]="chartOptions.tooltip">
-        </apx-chart>
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+            [yaxis]="chartOptions.yaxis" [tooltip]="chartOptions.tooltip" [plotOptions]="chartOptions.plotOptions"
+            [colors]="chartOptions.colors" [grid]="chartOptions.grid" [stroke]="chartOptions.stroke" #chart></apx-chart>
     </div>
+    }
 </app-card>

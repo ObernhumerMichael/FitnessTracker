@@ -1,18 +1,43 @@
-import { Component, viewChild, OnInit } from '@angular/core';
+import { Component, viewChild, OnInit, inject } from '@angular/core';
 import { CardComponent } from '../../components/card/card.component';
 import { ApexOptions, ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
+import { WeightEntry, WeightService } from 'src/app/services/health/weight.service';
 
 @Component({
   selector: 'app-weight-line-chart',
+  standalone: true,
   imports: [CardComponent, NgApexchartsModule],
   templateUrl: './weight-line-chart.component.html',
   styleUrl: './weight-line-chart.component.scss'
 })
-export class WeightLineChartComponent {
-  chart = viewChild.required<ChartComponent>('chart')
+export class WeightLineChartComponent implements OnInit {
+  private weightService = inject(WeightService);
+  chart = viewChild.required<ChartComponent>('chart');
   chartOptions!: Partial<ApexOptions>;
+  isLoading = true;
 
   ngOnInit() {
+    this.weightService.getWeightEntries().subscribe({
+      next: (entries) => {
+        this.updateChart(entries);
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading weight data:', error);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  private updateChart(entries: WeightEntry[]): void {
+    // Sort entries by date (oldest first)
+    const sortedEntries = [...entries].sort((a, b) =>
+      new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+
+    const weights = sortedEntries.map(entry => entry.weight)
+    const dates = sortedEntries.map(entry => entry.date)
+
     this.chartOptions = {
       chart: {
         type: 'line',
@@ -39,22 +64,13 @@ export class WeightLineChartComponent {
       },
       series: [
         {
-          name: "weight",
-          data: [90, 88, 89, 88, 86, 83, 84, 82]
+          name: "Weight",
+          data: weights,
         }
       ],
       xaxis: {
         type: 'datetime',
-        categories: [
-          '2025-05-10',
-          '2025-05-11',
-          '2025-05-12',
-          '2025-05-13',
-          '2025-05-14',
-          '2025-05-15',
-          '2025-05-16',
-          '2025-05-17',
-        ],
+        categories: dates,
         labels: {
           format: 'dd MMM',
         },
@@ -67,10 +83,14 @@ export class WeightLineChartComponent {
       },
       yaxis: {
         show: true,
-        stepSize: 2
+        min: Math.min(...weights) - 1,
+        max: Math.max(...weights) + 1,
       },
       tooltip: {
-        theme: 'light'
+        theme: 'light',
+        y: {
+          formatter: (value: number) => `${value} kg`
+        }
       }
     };
   }
