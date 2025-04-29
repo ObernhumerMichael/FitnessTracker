@@ -1,16 +1,8 @@
 <?php
 // weight.php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *'); // Allow requests from anywhere (development)
+header('Access-Control-Allow-Origin: *');
 
-// Handle only GET requests
-if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-    http_response_code(405); // Method Not Allowed
-    echo json_encode(['error' => 'Only GET requests are allowed']);
-    exit;
-}
-
-// Dummy data — normally this would come from a database
 $weights = [
     ['date' => '2025-04-01', 'weight' => 75.0],
     ['date' => '2025-04-05', 'weight' => 74.9],
@@ -21,7 +13,24 @@ $weights = [
     ['date' => '2025-04-29', 'weight' => 73.6],
 ];
 
-// Return the dummy weight entries
-echo json_encode(
-    $weights
-);
+// Handle only GET requests
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // Return the dummy weight entries
+    echo json_encode(
+        $weights
+    );
+} elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
+    $input = file_get_contents('php://input');
+    $newEntries = json_decode($input, true);
+    echo json_encode(['status' => 'success', 'count' => count($newEntries)]);
+} elseif ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type');
+    http_response_code(200);
+    exit;
+} else {
+    http_response_code(405);
+    echo json_encode(['error' => 'This request method is not allowed!']);
+    exit;
+}
