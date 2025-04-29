@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] === "POST") {
     $input = file_get_contents('php://input');
     $newEntries = json_decode($input, true);
-    echo json_encode(['status' => 'success', 'count' => count($newEntries)]);
+    echo json_encode(['status' => 'success']);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: POST, OPTIONS');

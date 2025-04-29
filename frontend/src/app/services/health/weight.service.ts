@@ -7,6 +7,12 @@ export interface WeightEntry {
   weight: number;
 }
 
+
+export interface StatusResponse {
+  status: string;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,10 +25,7 @@ export class WeightService {
     return this.http.get<WeightEntry[]>(this.apiUrl);
   }
 
-  postWeightEntries(weightEntries: [WeightEntry]) {
-    this.http.post(this.apiUrl, weightEntries).subscribe({
-      next: (response) => console.log('Success:', response),
-      error: (err) => console.error('Error:', err)
-    });
+  postWeightEntries(weightEntries: WeightEntry[]): Observable<StatusResponse> {
+    return this.http.post<StatusResponse>(this.apiUrl, weightEntries);
   }
 }

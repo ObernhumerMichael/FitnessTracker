@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { WeightService, WeightEntry } from 'src/app/services/health/weight.service';
 
@@ -9,6 +9,8 @@ import { WeightService, WeightEntry } from 'src/app/services/health/weight.servi
   styleUrl: './weight-modal.component.scss'
 })
 export class WeightModalComponent {
+  @Output() requestStatusEvent = new EventEmitter<string>();
+
   weightService = inject(WeightService);
   weightForm = new FormGroup({
     weight: new FormControl<number | null>(null, Validators.required),
@@ -20,6 +22,9 @@ export class WeightModalComponent {
       weight: this.weightForm.value.weight,
       date: this.weightForm.value.date,
     };
-    this.weightService.postWeightEntries([entry])
+    this.weightService.postWeightEntries([entry]).subscribe({
+      next: (response) => this.requestStatusEvent.emit(response.status),
+      error: (err) => console.error('Error:', err)
+    });
   }
 }

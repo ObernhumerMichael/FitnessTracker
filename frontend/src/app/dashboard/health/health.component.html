@@ -1,5 +1,11 @@
 <main>
     <p>health works!</p>
-    <app-weight-modal></app-weight-modal>
+    <app-weight-modal (requestStatusEvent)="changeRequestStatus($event)"></app-weight-modal>
     <app-weight-line-chart></app-weight-line-chart>
+    @if (status==="success") {
+    <div class="alert alert-success" role="alert">
+        Your weight has been added.
+        <a href="#" class="alert-link text-decoration-underline">undo</a>
+    </div>
+    }
 </main>

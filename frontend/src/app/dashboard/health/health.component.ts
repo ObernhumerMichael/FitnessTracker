@@ -9,5 +9,11 @@ import { WeightModalComponent } from './weight-modal/weight-modal.component';
   styleUrl: './health.component.scss'
 })
 export class HealthComponent {
-
+  status = ""
+  changeRequestStatus(new_status: string) {
+    this.status = new_status;
+    setTimeout(() => {
+      this.status = "";
+    }, 5000);
+  }
 }
