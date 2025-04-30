@@ -72,9 +72,11 @@ export class NavContentComponent implements OnInit {
   // Life cycle events
   ngOnInit() {
     if (this.windowWidth < 1025) {
-      (document.querySelector('.coded-navbar') as HTMLDivElement).classList.add('menupos-static');
+      const navbar = document.querySelector('.coded-navbar') as HTMLDivElement | null;
+      navbar?.classList.add('menupos-static');
     }
   }
+
 
   fireOutClick() {
     let current_url = this.location.path();

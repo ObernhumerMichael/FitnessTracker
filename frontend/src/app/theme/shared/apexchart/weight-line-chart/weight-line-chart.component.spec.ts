@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { WeightLineChartComponent } from './weight-line-chart.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('WeightLineChartComponent', () => {
   let component: WeightLineChartComponent;
@@ -8,9 +9,13 @@ describe('WeightLineChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WeightLineChartComponent]
+      imports: [WeightLineChartComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(WeightLineChartComponent);
     component = fixture.componentInstance;
