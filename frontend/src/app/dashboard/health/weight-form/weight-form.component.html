@@ -1,0 +1,14 @@
+<app-card [showHeader]="false">
+    <form [formGroup]="weightForm" (submit)="submitWeightEntry()">
+        <div class="form-floating mb-3">
+            <input type="number" class="form-control rounded-3" id="floatingWeight" formControlName="weight">
+            <label for="floatingWeight">Weight in kg</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control rounded-3" id="floatingDate" formControlName="date">
+            <label for="floatingDate">Date</label>
+        </div>
+        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit"
+            [disabled]="!weightForm.valid">Submit</button>
+    </form>
+</app-card>

@@ -1,11 +1,31 @@
 <main>
-    <p>health works!</p>
-    <app-weight-modal (requestStatusEvent)="changeRequestStatus($event)"></app-weight-modal>
+    @if (status==="form") {
+    <div class="w-100 d-flex flex-row justify-content-between mb-3 mt-2">
+        <h5 class="align-self-center m-0">Input your weight</h5>
+        <button class="btn btn-outline-danger" (click)="showChart()">Close</button>
+    </div>
+    <app-weight-form (requestStatusEvent)="changeRequestStatus($event)"></app-weight-form>
+    } @else {
+    <div class="w-100 d-flex flex-row justify-content-between mb-3 mt-2">
+        <h5 class="align-self-center m-0">Weight</h5>
+        <button class="btn btn-outline-primary" (click)="showForm()">Add</button>
+    </div>
     <app-weight-line-chart></app-weight-line-chart>
+    }
+
     @if (status==="success") {
-    <div class="alert alert-success" role="alert">
-        Your weight has been added.
-        <a href="#" class="alert-link text-decoration-underline">undo</a>
+    <div class="alert alert-success d-flex flex-row" role="alert">
+        <div class="d-flex flex-column flex-grow-1">
+            <div class="mb-2">
+                <span>Your weight has been added.</span>
+                <a href="#" class="alert-link text-decoration-underline">undo</a>
+            </div>
+            <div class="progress bg-transparent" style="height: 4px;">
+                <div class="progress-bar bg-success" role="progressbar" [style.width.%]="progress"
+                    [attr.aria-valuenow]="progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+        <button class="btn btn-close align-self-center ms-2" (click)="showChart()"></button>
     </div>
     }
 </main>

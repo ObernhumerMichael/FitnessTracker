@@ -1,14 +1,15 @@
 import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { WeightService, WeightEntry } from 'src/app/services/health/weight.service';
+import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 
 @Component({
-  selector: 'app-weight-modal',
-  imports: [ReactiveFormsModule],
-  templateUrl: './weight-modal.component.html',
-  styleUrl: './weight-modal.component.scss'
+  selector: 'app-weight-form',
+  imports: [ReactiveFormsModule, CardComponent],
+  templateUrl: './weight-form.component.html',
+  styleUrl: './weight-form.component.scss'
 })
-export class WeightModalComponent {
+export class WeightFormComponent {
   @Output() requestStatusEvent = new EventEmitter<string>();
 
   weightService = inject(WeightService);
